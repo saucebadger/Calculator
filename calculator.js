@@ -51,6 +51,38 @@ const operate = function(a, operator, b) {
     return divide(a,b)
   }
 };
+
+//This whole portion is the selectors for the buttons
+const display = document.querySelector("#display")
+const numberButtons = document.querySelectorAll("[data-number]")
+const operatorButtons = document.querySelectorAll("[data-operator]")
+const equalsButton = document.querySelector("#equals")
+let firstNumber;
+let operator;
+equalsButton.addEventListener("click", () => {
+  const secondNumber = Number(display.textContent);
+  display.textContent = operate(firstNumber, operator, secondNumber);
+});
+
+function numberClick () {
+for(const button of numberButtons) {
+  button.addEventListener("click", () => {
+    display.textContent += button.dataset.number;
+  });
+}
+}
+numberClick();
+
+function operatorClick () {
+  for (const button of operatorButtons) {
+    button.addEventListener("click", () => {
+      firstNumber = Number(display.textContent);
+      operator = button.dataset.operator;
+      display.textContent = "";
+    });
+  }
+}
+operatorClick();
 // Do not edit below this line
 module.exports = {
   add,
